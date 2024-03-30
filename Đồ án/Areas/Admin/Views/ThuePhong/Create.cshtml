@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model ThuePhong
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Thêm phòng thuê</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<button type="submit" form="createForm" class="btn btn-success">
+						<i class="material-icons">&#xe161;</i>
+						<span>Lưu</span>
+					</button>
+					<a asp-action="Index" asp-controller="ThuePhong" class="btn btn-success">
+						<i class="material-icons">&#xe5c4;</i>
+						<span>Quay về danh sách</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<form method="post" asp-action="Create" id="createForm">
+			<div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="form-group">
+							<label asp-for="phong">Tên phòng</label>
+							<select asp-for="IDPhong" type="text" asp-items="ViewBag.Phong" class="form-control"></select>
+						</div>
+						<div class="form-group">
+							<label asp-for="nguoiThue">Tên người thuê</label>
+							<select asp-for="IDNguoiThue" type="text" asp-items="ViewBag.NguoiThue" class="form-control"></select>
+						</div>
+						<div class="form-group">
+							<label asp-for="ngayThue">Ngày thuê</label>
+							<input asp-for="ngayThue" type="date" class="form-control" required />
+						</div>
+						<div class="form-group">
+							<label asp-for="ngayTra">Ngày trả</label>
+							<input asp-for="ngayTra" type="date" class="form-control"/>
+						</div>
+						<div class="form-group">
+							<label asp-for="tienCoc">Tiền cọc</label>
+							<input asp-for="tienCoc" type="number" class="form-control" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,84 @@
+﻿@{
+	ViewData["Title"] = "Create";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model NguoiThue
+<div class="col-md-12">
+	<div class="table-wrapper">
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Thêm người thuê</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<button type="submit" form="createForm" class="btn btn-success">
+						<i class="material-icons">&#xe161;</i>
+						<span>Lưu</span>
+					</button>
+					<a asp-action="Index" asp-controller="NguoiThue" class="btn btn-success">
+						<i class="material-icons">&#xe5c4;</i>
+						<span>Quay về danh sách</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<form method="post" enctype="multipart/form-data" id="createForm">
+			<input name="CCCD" value="@Model.CMND_CCCD" type="hidden"/>
+			<div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="form-group">
+							<label asp-for="hoTen">Họ và tên</label>
+							<input asp-for="hoTen" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="gioiTinh">Giới tính</label>
+							<select asp-for="gioiTinh" required>
+								<option value="0">Nữ</option>
+								<option value="1">Nam</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label asp-for="SDT">Số diện thoại</label>
+							<input asp-for="SDT" type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="queQuan">Quê quán</label>
+							<input asp-for="queQuan" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="ngaySinh">Ngày sinh</label>
+							<input asp-for="ngaySinh" type="date" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="CMND_CCCD">CMND/CCCD</label>
+							<input asp-for="CMND_CCCD" type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="Email">Email</label>
+							<input asp-for="Email" type="email" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="anhDaiDien">Ảnh đại diện</label>
+							<img alt="Ảnh đại diện" class="anhDaiDien" style="width: 100px; height: 150px; object-fit: cover" src="~/admin/Upload/@ViewBag.anhDaiDien" />
+							<input asp-for="anhDaiDien" type="file" name="anhDaiDien" class="form-control" onchange="document.querySelector('.anhDaiDien').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
+						</div>
+						<div class="form-group">
+							<label asp-for="matTruocCCCD">ảnh mặt trước CMND/CCCD</label>
+							<img alt="Mặt trước CMND/CCCD" class="matTruoc" style="width: 200px; height: 120px; object-fit: cover" src="~/admin/Upload/@ViewBag.matTruoc" />
+							<input asp-for="matTruocCCCD" type="file" name="matTruocCCCD" class="form-control" onchange="document.querySelector('.matTruoc').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
+						</div>
+						<div class="form-group">
+							<label asp-for="matSauCMND">Ảnh mặt sau CMND/CCCD</label>
+							<img alt="Mặt sau CMND/CCCD" class="matSau" style="width: 200px; height: 120px; object-fit: cover" src="~/admin/Upload/@ViewBag.matSau" />
+							<input asp-for="matSauCMND" type="file" name="matSauCMND" class="form-control" onchange="document.querySelector('.matSau').src = window.URL.createObjectURL(this.files[0])" accept="image/*">
+							<input type="hidden" name="listAnh[0]" value="@ViewBag.anhDaiDien"/>
+							<input type="hidden" name="listAnh[1]" value="@ViewBag.matTruoc" />
+							<input type="hidden" name="listAnh[2]" value="@ViewBag.matSau" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

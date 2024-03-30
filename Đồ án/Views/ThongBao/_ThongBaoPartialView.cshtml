@@ -1,0 +1,20 @@
+﻿@model Đồ_án.Areas.Admin.Models.ThongBao
+
+
+<div class="modal fade" id="DetailsThongBao-@Model.Id" style="" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg custom-modal-dialog" style="max-width: calc(100% - 30px);">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="staticBackdropLabel">@Model.tieuDe</h2>
+                <button type="button" class="btn-close buttonx" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                @Html.Raw(Model.moTa)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,80 @@
+﻿.main-content-inner {
+    float: left;
+    width: 100%;
+}
+
+.page-content {
+    background-color: #fff;
+    position: relative;
+    margin: 0;
+    padding: 8px 20px 24px;
+}
+
+th, td, .table-bordered {
+    border-radius: 0 !important;
+}
+
+.table-bordered {
+    border: 1px solid #ddd;
+}
+
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+}
+
+table {
+    background-color: transparent;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+a, a label {
+    cursor: pointer;
+}
+
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+.Noti {
+    color: #337ab7 !important;
+}
+
+/*.Noti:hover{
+    opacity: .8
+}*/
+
+a {
+    background-color: transparent;
+}
+
+.header-cell {
+    background-color: lightgray; /* Màu nền cho các cột tiêu đề */
+    font-weight: bold; /* Phông nổi bật */
+    box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.1); /* Bóng */
+}
+
+.custom-modal-dialog {
+    max-width: 100%;
+    width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonx {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: black;
+    border: none;
+}
+
+.btn-close:hover {
+    background-color: red;
+}

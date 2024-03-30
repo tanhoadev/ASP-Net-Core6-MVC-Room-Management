@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model DayTro
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Thêm dãy trọ</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<button type="submit" form="createForm" class="btn btn-success">
+						<i class="material-icons">&#xe161;</i>
+						<span>Lưu</span>
+					</button>
+					<a asp-action="Index" asp-controller="DayTro" class="btn btn-success">
+						<i class="material-icons">&#xe5c4;</i>
+						<span>Quay về danh sách</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<form method="post" asp-action="Create" id="createForm">
+			<div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="form-group">
+							<label asp-for="tenDayTro">Tên dãy trọ</label>
+							<input asp-for="tenDayTro" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="soLuongPhong">Số lượng phòng</label>
+
+							<select asp-for="soLuongPhong" id="numberDropdown">
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+

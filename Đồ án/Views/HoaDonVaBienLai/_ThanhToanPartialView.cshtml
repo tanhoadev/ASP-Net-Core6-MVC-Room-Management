@@ -1,0 +1,45 @@
+﻿@model Đồ_án.Areas.Admin.Models.HoaDon
+
+<div class="modal fade" id="ThahToanHoaDon-@Model.Id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-dialog" style="max-width: calc(100% - 30px);">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="staticBackdropLabel">Ghi chú: Hướng dẫn thanh toán</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">X</button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <div>
+                        <h5>1. Chọn phương thức thanh toán:</h5>
+                        <p>- [ ] Thanh toán bằng tiền mặt: Vui lòng cung cấp thông tin thẻ tín dụng, bao gồm số thẻ, tên trên thẻ, ngày hết hạn và mã CVV.</p>
+                        <p>- [ ] Chuyển khoản ngân hàng: Các bạn chuyển khoản bằng quét QR hay chuyển khoản thông qua số tài khoản hay momo bên dưới.</p>
+                        <h5 style="color: red">Lưu ý:</h5>
+                        <p> - [->] <strong style="color: black">Sau khi thanh toán thành công, vui lòng nhấn nút xác nhận đã thanh toán ở cuối trang</strong></p>
+                        <p> - [->] Nội dung chuyển khoản phải ghi rõ <strong style="color: red">họ tên</strong> và <strong style="color: red">số phòng</strong> <b>[VD]: [Nội Dung]:</b> <strong style="color: red">Nguyễn Minh Thuần - Phòng 999</strong></p>
+                        <p> - [->] Vui lòng kiểm tra lại thông tin thanh toán để đảm bảo chính xác trước khi xác nhận giao dịch. Nếu có bất kỳ thắc mắc hoặc vấn đề gì, xin liên hệ với bộ phận hỗ trợ của chúng tôi với số [zalo]: <span style="color:green ">01928313641</span> - [Điện thoại]: <span style="color: green ">01928313641</span>.</p>
+                        <p>--------------------------------------------------------------------------------------------------------------</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="image-container">
+                            <img src="~/admin/Upload/nganhang.jpg" style="max-height:563px" alt="Ảnh chuyển khoản ngân hàng" />@*style="max-height:563px;*@
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="image-container">
+                            <img src="~/admin/Upload/momo.jpg" alt="Ảnh chuyển khoản momo" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form asp-action="ClientPaid" method="post" asp-area="Admin" asp-controller="HoaDon" asp-route-id="@Model.Id">
+                    <button type="submit" class="btn btn-primary">Xác Nhận Đã Thanh Toán</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

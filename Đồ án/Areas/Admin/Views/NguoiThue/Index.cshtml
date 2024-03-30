@@ -1,0 +1,119 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model X.PagedList.IPagedList<Đồ_án.Areas.Admin.Models.NguoiThue>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+	var options = new PagedListRenderOptions()
+			{
+				LiElementClasses = new string[] { "page-item" },
+				PageClasses = new string[] { "page-link" },
+				UlElementClasses = new string[] { "pagination justify-content-center" }
+			};
+}
+<div class="xp-searchbar" style="margin: -18px 15px 5px;">
+	<form method="post" asp-action="Search">
+		<div class="input-group" style="width: 330px;">
+			<input type="search" class="form-control" name="name"
+				   placeholder="Search">
+			<div class="input-group-append">
+				<button class="btn" type="submit" id="button-addon2">
+					Go
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Danh sách người thuê</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<a asp-action="Create" asp-controller="NguoiThue" class="btn btn-success">
+						<i class="material-icons">&#xE147;</i>
+						<span>Thêm người thuê</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-striped table-hover">
+
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Họ tên</th>
+					<th>Giới tính</th>
+					<th>Số điện thoại</th>
+					<th>Quê quán</th>
+					<th>Ngày sinh</th>
+					<th>CMND/CCCD</th>
+					<th>Email</th>
+					<th>Ảnh đại diện</th>
+					<th>Mặt trước CMND/CCCD</th>
+					<th>Mặt sau CMND/CCCD</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@foreach (NguoiThue tk in Model)
+				{
+
+					<tr>
+						<th>@tk.Id</th>
+						<th>@tk.hoTen</th>
+
+						@{if(tk.gioiTinh == 0){
+							<th>Nữ</th>
+						}
+						else{
+							<th>Nam</th>
+						}}
+
+						<th>@tk.SDT</th>
+						<th>@tk.queQuan</th>
+						<th>@tk.ngaySinh.ToString("dd-MM-yyyy")</th>
+						<th>@tk.CMND_CCCD</th>
+						<th>@tk.Email</th>
+						<th>
+							<img alt="Ảnh đại diện" style="width: 100px; height: 150px; object-fit: cover" src="~/admin/Upload/@tk.anhDaiDien" />
+						</th>
+						<th>
+							<img alt="Mặt trước CMND/CCCD" style="width: 200px; height: 120px; object-fit: cover" src="~/admin/Upload/@tk.matTruocCCCD" />
+						</th>
+						<th>
+							<img alt="Mặt sau CMND/CCCD" style="width: 200px; height: 120px; object-fit: cover" src="~/admin/Upload/@tk.matSauCMND" />
+						</th>
+						<th>
+							<div class="d-flex justify-content-center align-items-center">
+								<a class="edit" asp-action="Update" asp-controller="NguoiThue" asp-route-id="@tk.Id">
+									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+								</a>
+								<form method="post" asp-action="Delete" asp-controller="NguoiThue" asp-route-id="@tk.Id">
+									<button type="submit" class="delete bg-transparent border-0">
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+									</button>
+									<input name="CMND" value="@tk.CMND_CCCD" type="hidden"/>
+								</form>
+
+							</div>
+
+						</th>
+					</tr>
+				}
+			</tbody>
+		</table>
+		<div class="">
+			@Html.PagedListPager(Model, page => Url.Action("Index", "NguoiThue", new {page = page}),options)
+		</div>
+	</div>
+</div>
+
+
+

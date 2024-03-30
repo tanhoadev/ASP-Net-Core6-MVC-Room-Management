@@ -1,0 +1,145 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@{
+	decimal TongD = 0, TongN = 0, TongDV = 0, TongF = 0, TongDN = 0, TongP = 0;
+}
+@model HoaDon
+<style>
+	th {
+		border: 1px solid #ddd;
+	}
+</style>
+<div class="col-md-12">
+	<form method="post" asp-action="Create" asp-controller="HoaDon">
+		<div class="table-wrapper">
+			<div class="table-title">
+				<div class="row">
+					<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+						<h2 class="ml-lg-2">Chi tiết phòng thuê</h2>
+					</div>
+					<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+						<a asp-action="Index" asp-controller="ThuePhong" class="btn btn-success">
+							<i class="material-icons">&#xe5c4;</i>
+							<span>Quay về danh sách</span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div style="margin: 12px 50px">
+				<h1 class="text-center">HÓA ĐƠN THANH TOÁN TIỀN TRỌ</h1>
+				<p><b>Tên Phòng:</b> @Model.tenPhong</p>
+				<p><b>Loại Phòng:</b> @Model.loaiPhong</p>
+				@{
+					TongP = decimal.Parse(Model.giaPhong.ToString());
+				}
+				<p><b>Giá Phòng: </b>@string.Format("{0:N0} đ", Model.giaPhong) </p>
+				<div style="display: flex; justify-content: center; margin-top: 28px;">
+					@if (ViewBag.DSDV.Count > 0)
+					{
+						<table class="table" style="width: 40%; margin-right: 20px;">
+							<thead class="table-dark">
+								<tr>
+									<th class="text-center" colspan="2">Dịch vụ sử dụng</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th class="text-center">Tên dịch vụ</th>
+									<th class="text-center">Thành tiền</th>
+								</tr>
+								@{int i = 0;}
+								@foreach (var dvs in ViewBag.DSDV)
+								{
+									<tr>
+										<th class="text-center">@dvs</th>
+										<th class="text-center">@string.Format("{0:N0} đ", decimal.Parse(ViewBag.GiaDVSD[i]))</th>
+										@{
+											TongDV += decimal.Parse(@ViewBag.GiaDVSD[i]);
+										}
+									</tr>
+									i++;
+								}
+								<tr>
+									<th class="text-center">Tổng</th>
+									<th class="text-center">@string.Format("{0:N0} đ", @TongDV)</th>
+								</tr>
+							</tbody>
+						</table>
+					}
+					<table class="table" style="width: 60%">
+						<thead class="table-dark">
+							<tr>
+								<th class="text-center" colspan="4">Điện nước sử dụng</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td></td>
+								<th class="text-center">Mức tiêu thụ</th>
+								<th class="text-center">Giá</th>
+								<th class="text-center">Thành tiền</th>
+							</tr>
+								<tr>
+									<th>Điện</th>
+									<th class="text-center">@Model.dienTieuThu</th>
+									<th class="text-center">@string.Format("{0:N0} đ", Model.giaDien) </th>
+									@{
+										TongD = decimal.Parse(Model.dienTieuThu.ToString()) * decimal.Parse(Model.giaDien.ToString());
+									}
+									<th class="text-center">@string.Format("{0:N0} đ", @TongD)</th>
+								</tr>
+								<tr>
+									<th>Nước</th>
+									<th class="text-center">@Model.nuocTieuThu</th>
+									<th class="text-center">@string.Format("{0:N0} đ", Model.giaNuoc) </th>
+									@{
+										TongN = decimal.Parse(Model.nuocTieuThu.ToString()) * decimal.Parse(Model.giaNuoc.ToString());
+									}
+									<th class="text-center">@string.Format("{0:N0} đ", @TongN)</th>
+								</tr>
+								<tr>
+									<th colspan="3" class="text-center">Tổng</th>
+									@{
+										TongDN = TongD + TongN;
+									}
+									<th class="text-center">@string.Format("{0:N0} đ", @TongDN) </th>
+								</tr>
+						</tbody>
+					</table>
+					@{
+						TongF = TongDN + TongDV + TongP;
+					}
+				</div>
+				<table class="text-center" style="width: 50%;margin: 20px auto; ">
+					<thead class="table-dark">
+						<tr>
+							<th class="text-center" colspan="2">Tổng số tiền phải thanh toán</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th class="text-center">Tiền Phòng</th>
+							<th class="text-right" style="padding-right: 15px;">@string.Format("{0:N0} Đ", TongP)</th>
+						</tr>
+						<tr>
+							<th class="text-center">Phí Dịch Vụ</th>
+							<th class="text-right" style="padding-right: 15px;">@string.Format("{0:N0} Đ", TongDV)</th>
+						</tr>
+						<tr>
+							<th class="text-center">Phí Điện Nước</th>
+							<th class="text-right" style="padding-right: 15px;">@string.Format("{0:N0} Đ", TongDN)</th>
+						</tr>
+						<tr class="total-row">
+							<th class="text-center" style="background-color: #f0f0f0" ;>Tổng Số Tiền Phải Thanh Toán</th>
+							<th class="text-right" style="background-color: #f0f0f0; padding-right: 15px;">@string.Format("{0:N0} Đ", TongF)</th>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			<div style="display: flex; justify-content: center; margin-top: 20px;">
+			</div>
+	</form>
+</div>
+</div>

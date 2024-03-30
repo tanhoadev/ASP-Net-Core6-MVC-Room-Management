@@ -1,0 +1,74 @@
+﻿@*@model Đồ_án.Areas.Admin.Models.TaiKhoan
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="~/Admin/assets/css/styles.css">
+
+    <title>Beautiful glass login form - Bedimcode</title>
+</head>
+<body>
+    <div class="container">
+        <div class="login__content">
+            <img src="~/Admin/assets/img/bg-login.png" alt="login image" class="login__img">
+
+            <form method="post" class="login__form" asp-action="Login" asp-controller="Home">
+                <div>
+                    <h1 class="login__title">
+                        <span>Welcome</span> Back
+                    </h1>
+                    <p class="login__description">
+                        Welcome! Please login to continue.
+                    </p>
+                </div>
+
+                <div>
+                    <div class="login__inputs">
+                        <div>
+                            <label asp-for="taiKhoan" class="login__label">UserName</label>
+                            <input type="Text" placeholder="Enter your userName" asp-for="taiKhoan" required class="login__input">
+                        </div>
+
+                        <div>
+                            <label for="" asp-for="matKhau" class="login__label">Password</label>
+
+                            <div class="login__box">
+                                <input type="password" asp-for="matKhau" placeholder="Enter your password" required class="login__input" id="input-pass">
+                                <i class="ri-eye-off-line login__eye" id="input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="login__check">
+                        <input type="checkbox" class="login__check-input">
+                        <label for="" class="login__check-label">Remember me</label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="login__buttons">
+                        <button type="submit" class="login__button">Log In</button>
+                        <button class="login__button login__button-ghost">Sign Up</button>
+                    </div>
+
+                    <a href="#" class="login__forgot">Forgot Password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!--=============== MAIN JS ===============-->
+    <script src="~/Admin/assets/js/main.js"></script>
+</body>
+</html>*@o

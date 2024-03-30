@@ -1,0 +1,59 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model DienNuoc
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Thêm Điện nước</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<button type="submit" form="createForm" class="btn btn-success">
+						<i class="material-icons">&#xe161;</i>
+						<span>Lưu</span>
+					</button>
+					<a asp-action="Index" asp-controller="DienNuoc" class="btn btn-success">
+						<i class="material-icons">&#xe5c4;</i>
+						<span>Quay về danh sách</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<form method="post" asp-action="Create" id="createForm">
+			<div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="form-group">
+							<label asp-for="phong">Tên phòng</label>
+							<select asp-for="IDPhong" asp-items="ViewBag.Phong"></select>
+						</div>
+						<div class="form-group">
+							<label asp-for="thoiGianHoaDon">Thời gian hóa đơn</label>
+							<input asp-for="thoiGianHoaDon" type="date" class="form-control" asp-format="{0:dd-MM-yyyy}" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="dienTieuThu">Điện tiêu thụ</label>
+							<input asp-for="dienTieuThu" type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="giaDien">Giá điện</label>
+							<input asp-for="giaDien" type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="nuocTieuThu">Nước tiêu thụ</label>
+							<input asp-for="nuocTieuThu" type="number" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="giaNuoc">Giá nước</label>
+							<input asp-for="giaNuoc" type="number" class="form-control" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

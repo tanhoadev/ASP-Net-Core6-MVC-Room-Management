@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model DichVu
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Thêm dịch vụ</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<button type="submit" form="createForm" class="btn btn-success">
+						<i class="material-icons">&#xe161;</i>
+						<span>Lưu</span>
+					</button>
+					<a asp-action="Index" asp-controller="DichVu" class="btn btn-success">
+						<i class="material-icons">&#xe5c4;</i>
+						<span>Quay về danh sách</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<form method="post" id="createForm">
+			<div>
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="form-group">
+							<label asp-for="tenDichVu">Tên dãy trọ</label>
+							<input asp-for="tenDichVu" type="text" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label asp-for="giaDichVu">Số lượng phòng</label>
+							<input asp-for="giaDichVu" type="text" class="form-control" required>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>

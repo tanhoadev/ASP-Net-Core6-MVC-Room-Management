@@ -1,0 +1,277 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .modal {
+        z-index: 1050 !important; /* Số này có thể khác nhau, chỉ cần đảm bảo cao hơn các phần tử khác */
+    }
+
+    .modal-backdrop {
+        z-index: 1040 !important; /* Đảm bảo thấp hơn modal để backdrop nằm phía sau */
+    }
+</style>
+<!DOCTYPE html>
+@using Đồ_án.Areas.Admin.Models
+@model Đồ_án.Areas.Admin.Models.HoaDon
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="~/daodiennguoidung/hoadon.css" />
+</head>
+<body>
+    <div class="main-content-inner">
+        <div class="col-sm-12">
+            <div class="page-content">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="tabBienLai">
+                        <li class="active">
+                            <a data-target="#tabBienLai1" data-toggle="tab1" aria-expanded="true">Hoá Đơn Biên Lai Tổng Tiền</a>
+                        </li>
+                        <li class="">
+                            <a data-target="#tabBienLai2" data-toggle="tab2" aria-expanded="false">Hoá Đơn Đợi Duyệt</a>
+                        </li>
+                        <li class="">
+                            <a data-target="#tabBienLai3" data-toggle="tab3" aria-expanded="false">Hoá Đơn Đã Được Thanh Toán</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tabBienLai1" class="tab-pane clearfix active">
+                            <h2></h2>
+                            <div class="grid-mvc" data-lang="en" data-gridname data-selectable="true" data-multiplefilters="false">
+                                <div class="grid-wrap qts6ce5c9dc-f741-4ad4-80d4-3cad5f810c5d">
+                                    <table class="table table-striped grid-table ui-responsive" style="background-color: greenyellow;">
+                                        <thead>
+                                            <tr>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Tháng/Năm</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Tổng tiền</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Ghi Chú</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Thông tin thanh toán</span>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(HoaDon chuaThanhT in ViewBag.ChuaThanhToan)
+                                            {
+                                                <tr class="grid-row" style="background-color: aliceblue;">
+                                                    <td class="grid-cell center" data-name="CollectedDate">
+                                                        @chuaThanhT.ngayThanhToan.ToString("dd/MM")
+                                                    </td>
+                                                    <td class="grid-cell" data-name>
+                                                        <p>
+                                                            <b style="font-size: 16px">@string.Format("{0:N0} đ", @chuaThanhT.soTienThanhToan)</b>
+                                                        </p>
+                                                        <p>
+                                                            (@chuaThanhT.loaiPhong)
+                                                        </p>
+                                                    </td>
+
+
+
+                                                    <td class="grid-cell center" data-name>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@("#DetailsHoaDon-"+chuaThanhT.Id)" data-url="@Url.Action($"Details/{chuaThanhT.Id}")">
+                                                            Xem chi tiết
+                                                        </button>
+                                                        @await Html.PartialAsync("_DetailsHoaDonPartialView",chuaThanhT)
+                                                    </td>
+
+
+
+                                                    <td class="grid-cell center" data-name>
+                                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="@("#ThahToanHoaDon-"+chuaThanhT.Id)" data-url="@Url.Action($"ThanhToan/{chuaThanhT.Id}")">
+                                                            Thanh toán
+                                                        </button>
+                                                        @await Html.PartialAsync("_ThanhToanPartialView",chuaThanhT)
+                                                    </td>
+
+
+
+                                                    <td class="grid-cell center" style="display: none" data-name>
+                                                        <div class="">
+                                                            <a class="btn btn-mini btn-info" data-toggle="modal" data-target="#popup-dien-giai-dien-nuoc-488855">Thanh Toán</a>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@("#ThahToanHoaDon-"+chuaThanhT.Id)" data-url="@Url.Action($"ThanhToan/{chuaThanhT.Id}")">
+                                                            Xem chi tiết
+                                                        </button>
+                                                        @await Html.PartialAsync("_ThanhToanPartialView",chuaThanhT)
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tabBienLai2" class="tab-pane clearfix">
+                            <h2></h2>
+                            <div class="grid-mvc" data-lang="en" data-gridname data-selectable="flase" data-multiplefilters="false">
+                                <div class="grid-wrap qts6ce5c9dc-f741-4ad4-80d4-3cad5f810c5d">
+                                    <table class="table table-striped grid-table ui-responsive" style="background-color: greenyellow;">
+                                        <thead>
+                                            <tr>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Tháng/năm</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Tổng tiền</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Ghi Chú</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Thông tin thanh toán</span>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (HoaDon doiDuyet in ViewBag.ChoDuyet)
+                                            {
+                                                <tr class="grid-row" style="background-color: aliceblue;">
+                                                    <td class="grid-cell center" data-name="CollectedDate">
+                                                        @doiDuyet.ngayThanhToan.ToString("dd/MM")
+                                                    </td>
+                                                    <td class="grid-cell" data-name>
+                                                        <p>
+                                                            <b style="font-size: 16px">@string.Format("{0:N0} đ", @doiDuyet.soTienThanhToan)</b>
+                                                        </p>
+                                                        <p>
+                                                            (@doiDuyet.loaiPhong)
+                                                        </p>
+                                                    </td>
+                                                    <td class="grid-cell" data-name>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@("#DetailsHoaDon-"+doiDuyet.Id)" data-url="@Url.Action($"Details/{doiDuyet.Id}")">
+                                                            Xem chi tiết
+                                                        </button>
+                                                        @await Html.PartialAsync("_DetailsHoaDonPartialView",doiDuyet)
+                                                    </td>
+                                                    <td class="grid-cell" data-name>
+                                                        <p style="color: green">Đợi Duyệt</p>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tabBienLai3" class="tab-pane clearfix">
+                            <h2></h2>
+                            <div class="grid-mvc" data-lang="en" data-gridname data-selectable="false" data-multiplefilters="false">
+                                <div class="grid-wrap qts6ce5c9dc-f741-4ad4-80d4-3cad5f810c5d">
+                                    <table class="table table-striped grid-table ui-responsive" style="background-color: greenyellow;">
+                                        <thead>
+                                            <tr>
+                                                <th class="grid-header" style="width: 100px">
+                                                    <div class="grid-header-title">
+                                                        <span>Tháng/năm</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Tổng tiền</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Ghi Chú</span>
+                                                    </div>
+                                                </th>
+                                                <th class="grid-header" style="width:100px;">
+                                                    <div class="grid-header-title">
+                                                        <span>Thông tin thanh toán</span>
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach(HoaDon daThanhToan in ViewBag.DaThanhToan)
+                                            {
+                                                <tr class="grid-row" style="background-color: aliceblue;">
+                                                <td class="grid-cell center" data-name="CollectedDate">
+                                                        @daThanhToan.ngayThanhToan.ToString("dd/MM")
+                                                </td>
+                                                <td class="grid-cell" data-name>
+                                                    <p>
+                                                            <b style="font-size: 16px">@string.Format("{0:N0} đ", @daThanhToan.soTienThanhToan)</b>
+                                                    </p>
+                                                    <p>
+                                                            (@daThanhToan.loaiPhong)
+                                                    </p>
+                                                </td>
+                                                <td class="grid-cell center" data-name>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@("#DetailsHoaDon-"+daThanhToan.Id)" data-url="@Url.Action($"Details/{daThanhToan.Id}")">
+                                                            Xem chi tiết
+                                                        </button>
+                                                        @await Html.PartialAsync("_DetailsHoaDonPartialView",daThanhToan)
+
+                                                </td>
+                                                <td class="grid-cell" data-name>
+                                                    <p style="color: green">Đã thanh toán</p>
+                                                </td>
+                                            </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#tabBienLai li").click(function () {
+                $("#tabBienLai li").removeClass("active");
+                $(this).addClass("active");
+
+                // Lấy ID của tab được nhấn
+                var tabId = $(this).find("a").attr("data-target");
+
+                // Ẩn tất cả các tab-content
+                $(".tab-content .tab-pane").removeClass("active");
+
+                // Hiển thị nội dung tương ứng với tab được chọn
+                $(tabId).addClass("active");
+            });
+        });
+        $(document).on('show.bs.modal', '.modal', function () {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function () {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1);
+            }, 0);
+            console.log('tôi đã ở đây')
+        });
+        $('.modal').on('show.bs.modal', function (e) {
+            console.log('Event triggered: show.bs.modal');
+        });
+    </script>
+</body>
+</html>

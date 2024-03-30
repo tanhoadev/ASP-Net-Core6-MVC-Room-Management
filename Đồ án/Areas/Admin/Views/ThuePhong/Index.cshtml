@@ -1,0 +1,112 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model X.PagedList.IPagedList<Đồ_án.Areas.Admin.Models.ThuePhong>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+	var options = new PagedListRenderOptions()
+			{
+				LiElementClasses = new string[] { "page-item" },
+				PageClasses = new string[] { "page-link" },
+				UlElementClasses = new string[] { "pagination justify-content-center" }
+			};
+}
+<div class="xp-searchbar" style="margin: -18px 15px 5px;">
+	<form>
+		<div class="input-group" style="width: 330px;">
+			<input type="search" class="form-control"
+				   placeholder="Search">
+			<div class="input-group-append">
+				<button class="btn" type="submit" id="button-addon2">
+					Go
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Danh sách phòng được thuê</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<a asp-action="Create" asp-controller="ThuePhong" class="btn btn-success">
+						<i class="material-icons">&#xE147;</i>
+						<span>Thêm phòng thuê</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-striped table-hover">
+
+			<thead>
+				<tr>
+					<th>
+						<span class="custom-checkbox">
+							<input type="checkbox" id="selectAll">
+							<label for="selectAll"></label>
+					</th>
+					<th>ID</th>
+					<th>Tên phòng</th>
+					<th>Tên người thuê</th>
+					<th>Ngày thuê</th>
+					<th>Ngày trả</th>
+					<th>Tiền cọc</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@foreach (ThuePhong tk in Model)
+				{
+
+					<tr>
+						<th>
+							<span class="custom-checkbox">
+								<input type="checkbox" id="checkbox1" name="option[]" value="1">
+								<label for="checkbox1"></label>
+						</th>
+						<th>@tk.Id</th>
+						<th>@tk.phong.tenPhong</th>
+						<th>@tk.nguoiThue.hoTen</th>
+						<th>@tk.ngayThue.ToString("dd-MM-yyyy")</th>
+						<th>@tk.ngayTra.ToString("dd-MM-yyyy")</th>
+						<th>@string.Format("{0:N0} đ", tk.tienCoc)</th>
+						<th>
+							<div class="d-flex justify-content-center align-items-center">
+								<a class="edit" asp-action="Update" asp-controller="ThuePhong" asp-route-id="@tk.Id">
+									<i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+								</a>
+								<form method="post" asp-action="Delete" asp-controller="ThuePhong" asp-route-id="@tk.Id">
+									<input name="idPhong" type="hidden" value="@tk.IDPhong" />
+									<button type="submit" class="delete bg-transparent border-0">
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+									</button>
+								</form>
+								<a class="view" asp-action="Details" asp-controller="ThuePhong" asp-route-id="@tk.Id">
+									<i class="material-icons" data-toggle="tooltip" title="View">&#xE8F4;</i>
+								</a>
+							</div>
+
+						</th>
+					</tr>
+				}
+
+
+			</tbody>
+
+
+		</table>
+		<div class="">
+			@Html.PagedListPager(Model, page => Url.Action("Index", "ThuePhong", new {page = page}),options)
+		</div>
+	</div>
+</div>
+
+
+

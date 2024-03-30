@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Đồ_án.Areas.Admin.Models.NguoiThue
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="~/daodiennguoidung/styles.css">
+</head>
+<body>
+    <div class="main-content-inner">
+        <div class="page-content">
+            <ul class="nav nav-tabs" id="myTab">
+                <li id="li-tab1" class="active">
+                    <a class="custom-button" data-target="#tab1" data-toggle="tab" aria-expanded="true">THÔNG TIN CHUNG</a>
+                </li>
+                <li id="li-tab2" class="">
+                    <a class="custom-button" data-target="#tab2" data-toggle="tab" aria-expanded="false">THÔNG TIN LIÊN HỆ</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab1">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="col-sm-6">
+                                <div class="profile-picture" style="text-align: center">
+                                    <img id="avata" alt="Tên" src="~/admin/Upload/@Model.anhDaiDien" style="max-width: 100%" height="200" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 top-5">
+                                <div class="profile-picture" style="text-align: center">
+                                    <img id="anhavata" alt="CCCD" src="~/admin/Upload/@Model.matTruocCCCD" style="max-width: 100%; height: auto; max-height: 100vh; margin: 0 auto;" />
+                                </div>
+                                <div class="profile-picture" style="text-align: center">
+                                    <img id="anhavata" alt="CCCD" src="~/admin/Upload/@Model.matSauCMND" style="max-width: 100%; height: auto; max-height: 100vh; margin: 0 auto;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <h5 class="blue">Thông Tin Cá Nhân</h5>
+                            <div class="detail-view col-sm-12 top-5">
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">Họ và Tên: </label>
+                                    </div>
+                                    <div class="col-xs-8 control-value">@Model.hoTen</div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">Ngày Tháng Năm Sinh: </label>
+                                    </div>
+                                    <div class="col-xs-8 control-value">@Model.ngaySinh.ToString("dd/MM/yyyy")</div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">Giới Tính: </label>
+                                    </div>
+                                    @{
+                                        if(Model.gioiTinh == 0)
+                                        {
+                                            <div class="col-xs-8 control-value">Nữ</div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-xs-8 control-value">Nam</div>
+                                        }
+                                    }
+                                </div>
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">CCCD-CMND: </label>
+                                    </div>
+                                    <div class="col-xs-8 control-value">@Model.CMND_CCCD</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="tab2">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h5 class="blue">Thông Tin Liên Lạc</h5>
+                            <div class="detail-view">
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">Email:</label>
+                                    </div>
+                                    <div class="col-xs-8 control-value"> @Model.Email</div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">Số Điên Thoại: </label>
+                                    </div>
+                                    <div class="col-xs-8 control-value">@Model.SDT</div>
+                                </div>
+                                <div class="row control-group">
+                                    <div class="col-xs-4 control-label">
+                                        <label for="Birthday">Quê Quán: </label>
+                                    </div>
+                                    <div class="col-xs-8 control-value">@Model.queQuan</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#myTab li").click(function () {
+                $("#myTab li").removeClass("active");
+                $(this).addClass("active");
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+﻿@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Areas/Admin/Views/Share/_LayoutAdmin.cshtml";
+}
+@model X.PagedList.IPagedList<Đồ_án.Areas.Admin.Models.DichVuSuDung>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common;
+@{
+	var options = new PagedListRenderOptions()
+			{
+				LiElementClasses = new string[] { "page-item" },
+				PageClasses = new string[] { "page-link" },
+				UlElementClasses = new string[] { "pagination justify-content-center" }
+			};
+}
+<div class="xp-searchbar" style="margin: -18px 15px 5px;">
+	<form>
+		<div class="input-group" style="width: 330px;">
+			<input type="search" class="form-control"
+				   placeholder="Search">
+			<div class="input-group-append">
+				<button class="btn" type="submit" id="button-addon2">
+					Go
+				</button>
+			</div>
+		</div>
+	</form>
+</div>
+<div class="col-md-12">
+	<div class="table-wrapper">
+
+		<div class="table-title">
+			<div class="row">
+				<div class="col-sm-6 p-0 flex justify-content-lg-start justify-content-center">
+					<h2 class="ml-lg-2">Danh sách dịch vụ sử dụng</h2>
+				</div>
+				<div class="col-sm-6 p-0 flex justify-content-lg-end justify-content-center">
+					<a asp-action="Create" asp-controller="DichVuSuDung" class="btn btn-success">
+						<i class="material-icons">&#xE147;</i>
+						<span>Thêm dịch vụ sử dụng</span>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-striped table-hover">
+
+			<thead>
+				<tr>
+					<th class="text-center">Tên phòng</th>
+					<th class="text-center">Tên dịch vụ</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				@foreach (DichVuSuDung tk in Model)
+				{
+
+					<tr>
+						<th class="text-center">@tk.phong.tenPhong</th>
+						<th class="text-center">@tk.dichVu.tenDichVu</th>
+						<th>
+							<div class="d-flex justify-content-end align-items-center">
+								<form method="post" asp-action="Delete" asp-controller="DichVuSuDung" asp-route-IDPhong="@tk.IDPhong" asp-route-IDDichVu="@tk.IDDichVu">
+									<button type="submit" class="delete bg-transparent border-0">
+										<i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i>
+									</button>
+								</form>
+
+							</div>
+
+						</th>
+					</tr>
+				}
+
+			</tbody>
+
+
+		</table>
+		<div class="">
+			@Html.PagedListPager(Model, page => Url.Action("Index", "DichVuSuDung", new {page = page}),options)
+		</div>
+	</div>
+</div>
+
+
+
